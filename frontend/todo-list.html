@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List - Vue.js Components</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+    <div id="app">
+        <div class="container-large">
+            <header class="header-large">
+                <h1>Minha Lista de Tarefas</h1>
+                <p>Organize suas tarefas de forma simples e eficiente</p>
+            </header>
+
+            <div class="app-card-large">
+                <todo-list />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, defineComponent } = Vue;
+
+        const TodoItem = defineComponent({
+            name: 'TodoItem',
+            props: {
+                todo: {
+                    type: Object,
+                    required: true
+                }
+            },
+            emits: ['update', 'remove'],
+            template: `
+                <li 
+                    class="item"
+                    :class="{ completed: todo.completed }"
+                >
+                    <input 
+                        type="checkbox" 
+                        class="item-checkbox"
+                        v-model="todo.completed"
+                        @change="$emit('update', todo)"
+                    >
+                    <span class="item-text">{{ todo.text }}</span>
+                    <div class="item-actions">
+                        <button 
+                            class="btn btn-danger"
+                            @click="$emit('remove', todo.id)"
+                            title="Remover tarefa"
+                        >
+                            🗑️
+                        </button>
+                    </div>
+                </li>
+            `
+        });
+
+        const TodoList = defineComponent({
+            name: 'TodoList',
+            components: { TodoItem },
+            data() {
+                return {
+                    todos: [
+                        { id: 1, text: 'Aprender Vue.js', completed: false },
+                        { id: 2, text: 'Criar projeto fullstack', completed: true },
+                        { id: 3, text: 'Estudar TypeScript', completed: false }
+                    ],
+                    newTodo: '',
+                    filter: 'all',
+                    nextId: 4
+                }
+            },
+            computed: {
+                activeTodos() {
+                    return this.todos.filter(todo => !todo.completed);
+                },
+                completedTodos() {
+                    return this.todos.filter(todo => todo.completed);
+                },
+                filteredTodos() {
+                    switch (this.filter) {
+                        case 'active':
+                            return this.activeTodos;
+                        case 'completed':
+                            return this.completedTodos;
+                        default:
+                            return this.todos;
+                    }
+                }
+            },
+            methods: {
+                addTodo() {
+                    const text = this.newTodo.trim();
+                    
+                    if (!text) {
+                        alert('Por favor, digite uma tarefa válida!');
+                        return;
+                    }
+                    
+                    if (this.todos.some(todo => todo.text.toLowerCase() === text.toLowerCase())) {
+                        alert('Esta tarefa já existe na lista!');
+                        return;
+                    }
+                    
+                    this.todos.push({
+                        id: this.nextId++,
+                        text: text,
+                        completed: false
+                    });
+                    
+                    this.newTodo = '';
+                    this.saveTodos();
+                },
+                
+                async removeTodo(id) {
+                    const todo = this.todos.find(t => t.id === id);
+                    const todoText = todo ? todo.text : 'esta tarefa';
+                    
+                    const result = await Swal.fire({
+                        title: 'Tem certeza?',
+                        text: `Você está prestes a excluir "${todoText}". Esta ação não pode ser desfeita!`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#ef4444',
+                        cancelButtonColor: '#6b7280',
+                        confirmButtonText: 'Sim, excluir!',
+                        cancelButtonText: 'Cancelar',
+                        reverseButtons: true,
+                        customClass: {
+                            popup: 'swal-popup',
+                            title: 'swal-title',
+                            content: 'swal-content',
+                            confirmButton: 'swal-confirm-btn',
+                            cancelButton: 'swal-cancel-btn'
+                        }
+                    });
+                    
+                    if (result.isConfirmed) {
+                        this.todos = this.todos.filter(todo => todo.id !== id);
+                        this.saveTodos();
+                        
+                        await Swal.fire({
+                            title: 'Excluída!',
+                            text: 'A tarefa foi excluída com sucesso.',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                            customClass: {
+                                popup: 'swal-popup-success'
+                            }
+                        });
+                    }
+                },
+                
+                updateTodo(todo) {
+                    this.saveTodos();
+                },
+                
+                saveTodos() {
+                    try {
+                        localStorage.setItem('vue-todos', JSON.stringify(this.todos));
+                    } catch (error) {
+                        console.error('Erro ao salvar tarefas:', error);
+                    }
+                },
+                
+                loadTodos() {
+                    try {
+                        const savedTodos = localStorage.getItem('vue-todos');
+                        if (savedTodos) {
+                            this.todos = JSON.parse(savedTodos);
+                            this.nextId = Math.max(...this.todos.map(todo => todo.id)) + 1;
+                        }
+                    } catch (error) {
+                        console.error('Erro ao carregar tarefas:', error);
+                    }
+                }
+            },
+            mounted() {
+                this.loadTodos();
+            },
+            template: `
+                <div class="todo-list">
+                    <div class="add-form">
+                        <input 
+                            v-model="newTodo" 
+                            @keyup.enter="addTodo"
+                            placeholder="Digite uma nova tarefa..."
+                            maxlength="100"
+                            class="form-input"
+                        >
+                        <button 
+                            @click="addTodo" 
+                            :disabled="!newTodo.trim()"
+                            class="btn btn-primary"
+                        >
+                            Adicionar
+                        </button>
+                    </div>
+
+                    <div class="filters">
+                        <button 
+                            class="filter-btn" 
+                            :class="{ active: filter === 'all' }"
+                            @click="filter = 'all'"
+                        >
+                            Todas ({{ todos.length }})
+                        </button>
+                        <button 
+                            class="filter-btn" 
+                            :class="{ active: filter === 'active' }"
+                            @click="filter = 'active'"
+                        >
+                            Pendentes ({{ activeTodos.length }})
+                        </button>
+                        <button 
+                            class="filter-btn" 
+                            :class="{ active: filter === 'completed' }"
+                            @click="filter = 'completed'"
+                        >
+                            Concluídas ({{ completedTodos.length }})
+                        </button>
+                    </div>
+
+                    <transition-group name="fade" tag="ul" class="item-list">
+                        <TodoItem
+                            v-for="todo in filteredTodos" 
+                            :key="todo.id"
+                            :todo="todo"
+                            @update="updateTodo"
+                            @remove="removeTodo"
+                        />
+                    </transition-group>
+
+                    <div v-if="filteredTodos.length === 0" class="empty-state">
+                        <h3>Nenhuma tarefa encontrada</h3>
+                        <p v-if="filter === 'all'">Adicione sua primeira tarefa acima!</p>
+                        <p v-else-if="filter === 'active'">Todas as tarefas estão concluídas! 🎉</p>
+                        <p v-else>Nenhuma tarefa foi concluída ainda.</p>
+                    </div>
+
+                    <div class="stats">
+                        <p>
+                            <strong>{{ todos.length }}</strong> tarefas total | 
+                            <strong>{{ activeTodos.length }}</strong> pendentes | 
+                            <strong>{{ completedTodos.length }}</strong> concluídas
+                        </p>
+                        <p v-if="completedTodos.length > 0">
+                            Progresso: {{ Math.round((completedTodos.length / todos.length) * 100) }}%
+                        </p>
+                    </div>
+                </div>
+            `
+        });
+
+        const app = createApp({
+            components: { TodoList }
+        });
+        
+        app.mount('#app');
+    </script>
+
+    <style>
+        .swal-popup {
+            border-radius: 12px !important;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        }
+
+        .swal-title {
+            color: #1f2937 !important;
+            font-size: 1.5rem !important;
+            font-weight: 600 !important;
+        }
+
+        .swal-content {
+            color: #6b7280 !important;
+            font-size: 1rem !important;
+            line-height: 1.5 !important;
+        }
+
+        .swal-confirm-btn {
+            background: #ef4444 !important;
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 12px 24px !important;
+            font-weight: 500 !important;
+            font-size: 0.875rem !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .swal-confirm-btn:hover {
+            background: #dc2626 !important;
+            transform: translateY(-1px) !important;
+        }
+
+        .swal-cancel-btn {
+            background: #6b7280 !important;
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 12px 24px !important;
+            font-weight: 500 !important;
+            font-size: 0.875rem !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .swal-cancel-btn:hover {
+            background: #4b5563 !important;
+            transform: translateY(-1px) !important;
+        }
+
+        .swal-popup-success {
+            border-radius: 12px !important;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+            color: white !important;
+        }
+
+        .swal-popup-success .swal-title {
+            color: white !important;
+        }
+
+        .swal-popup-success .swal-content {
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+
+        .swal2-show {
+            animation: swal2-show 0.3s ease-out !important;
+        }
+
+        @keyframes swal2-show {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .swal-popup {
+                width: 90% !important;
+                margin: 0 auto !important;
+            }
+            
+            .swal-title {
+                font-size: 1.25rem !important;
+            }
+            
+            .swal-content {
+                font-size: 0.875rem !important;
+            }
+        }
+    </style>
+</body>
+</html>

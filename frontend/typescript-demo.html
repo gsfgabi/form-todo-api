@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeScript: Por que usar Tipagem?</title>
+    <link rel="stylesheet" href="css/global.css">
+</head>
+
+<body class="typescript-demo">
+    <div class="container">
+        <div class="header">
+            <h1>TypeScript: Por que usar Tipagem?</h1>
+            <p>Demonstração prática de como TypeScript previne erros e melhora o desenvolvimento</p>
+        </div>
+
+        <div class="section">
+            <h2>Testar aplicação</h2>
+            <p>Adicione usuários e veja a função TypeScript funcionando:</p>
+
+            <div class="demo-controls">
+                <button class="btn" onclick="runDemo()">Executar Demo</button>
+                <button class="btn secondary" onclick="addRandomUser()">Usuário Aleatório</button>
+                <button class="btn secondary" onclick="clearUsers()">Limpar</button>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="userName" placeholder="Nome" value="João">
+                <input type="number" id="userAge" placeholder="Idade" value="28" min="0" max="120">
+                <button class="btn" onclick="addUser()">Adicionar</button>
+            </div>
+
+            <div id="liveResults" class="console">
+                <div class="log info">Pronto! Clique em "Executar Demo" para começar.</div>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        <div class="section">
+            <h2>Resultados em Tempo Real</h2>
+            <div id="result" class="result-box">
+                <p><strong>Array de usuários:</strong></p>
+                <div id="originalArray"></div>
+
+                <p><strong>Usuários com mais de 23 anos:</strong></p>
+                <div id="filteredResult"></div>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number" id="totalUsers">0</div>
+                    <div class="stat-label">Total de Usuários</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="usersOver23">0</div>
+                    <div class="stat-label">Usuários > 23 anos</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="averageAge">0</div>
+                    <div class="stat-label">Idade Média</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="percentage">0%</div>
+                    <div class="stat-label">Percentual > 23</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Por que essas decisões de código?</h2>
+            <div class="benefits">
+                <div class="benefit">
+                    <h3>1. Interface User</h3>
+                    <p>Define a estrutura exata de um usuário. TypeScript garante que todos os objetos sigam essa
+                        estrutura.</p>
+                </div>
+                <div class="benefit">
+                    <h3>2. Parâmetro userList: User[]</h3>
+                    <p>Especifica que a função recebe um array de usuários. Se você passar algo diferente, TypeScript
+                        avisa.</p>
+                </div>
+                <div class="benefit">
+                    <h3>3. Retorno string[]</h3>
+                    <p>Garante que a função sempre retorna um array de strings. Você sabe exatamente o que esperar.</p>
+                </div>
+                <div class="benefit">
+                    <h3>4. Tipagem explícita</h3>
+                    <p>filter((user: User) => ...) garante que 'user' seja do tipo User, permitindo acesso seguro às
+                        propriedades.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/typescript-demo.js"></script>
+</body>
+
+</html>

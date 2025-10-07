@@ -1,0 +1,26 @@
+{
+  "name": "desafio-fullstack-junior",
+  "version": "1.0.0",
+  "description": "Projeto didático para demonstrar conhecimentos em HTML, CSS, JavaScript/Vue.js, TypeScript, SQL e Node.js",
+  "main": "backend/src/main.ts",
+  "scripts": {
+    "dev": "nodemon backend/src/main.ts",
+    "build": "tsc",
+    "start": "node backend/dist/main.js"
+  },
+  "keywords": ["fullstack", "vue", "typescript", "nodejs", "sql"],
+  "author": "Desenvolvedor Fullstack Júnior",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/cors": "^2.8.13",
+    "@types/node": "^20.4.5",
+    "nodemon": "^3.0.1",
+    "typescript": "^5.1.6",
+    "ts-node": "^10.9.1"
+  }
+}

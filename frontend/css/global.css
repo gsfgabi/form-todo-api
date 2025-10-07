@@ -1,0 +1,1014 @@
+/* =====================================================
+   GLOBAL.CSS 
+   ===================================================== */
+
+/* Reset e configurações base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variáveis CSS globais para consistência */
+:root {
+    /* Cores principais */
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --primary-light: #dbeafe;
+    
+    /* Cores neutras */
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    
+    /* Cores de feedback */
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --warning-color: #f59e0b;
+    
+    /* Tipografia */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    
+    /* Espaçamentos */
+    --spacing-1: 0.25rem;
+    --spacing-2: 0.5rem;
+    --spacing-3: 0.75rem;
+    --spacing-4: 1rem;
+    --spacing-5: 1.25rem;
+    --spacing-6: 1.5rem;
+    --spacing-8: 2rem;
+    --spacing-10: 2.5rem;
+    --spacing-12: 3rem;
+    --spacing-16: 4rem;
+    
+    /* Bordas e sombras */
+    --border-radius: 0.5rem;
+    --border-radius-lg: 0.75rem;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+/* Configurações base do body */
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--gray-800);
+    background: linear-gradient(135deg, var(--gray-50) 0%, var(--primary-light) 100%);
+    min-height: 100vh;
+    padding: var(--spacing-4);
+}
+
+
+/* Container principal */
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: calc(100vh - 2rem);
+    gap: var(--spacing-8);
+}
+
+/* Container para aplicações maiores */
+.container-large {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--spacing-8);
+}
+
+/* Cabeçalho padrão */
+.header {
+    text-align: center;
+    padding: var(--spacing-8) 0;
+}
+
+.header h1 {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-2);
+}
+
+.header p {
+    color: var(--gray-600);
+    font-size: var(--font-size-lg);
+}
+
+/* Cabeçalho para aplicações maiores */
+.header-large {
+    text-align: center;
+    margin-bottom: var(--spacing-12);
+}
+
+.header-large h1 {
+    font-size: 2.5rem;
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-2);
+    font-weight: 700;
+}
+
+.header-large p {
+    color: var(--gray-600);
+    font-size: 1.125rem;
+}
+
+/* Conteúdo principal */
+.main-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Card/Container de aplicação */
+.app-card {
+    width: 100%;
+    background: white;
+    padding: var(--spacing-8);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--gray-200);
+}
+
+/* Card para aplicações maiores */
+.app-card-large {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-8);
+    border: 1px solid var(--gray-200);
+}
+
+/* Rodapé */
+.footer {
+    text-align: center;
+    padding: var(--spacing-4) 0;
+    color: var(--gray-600);
+}
+
+/* Links */
+.link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease-in-out;
+}
+
+.link:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* =====================================================
+   COMPONENTES DE FORMULÁRIO
+   ===================================================== */
+
+/* Grupos de campos */
+.form-group {
+    margin-bottom: var(--spacing-6);
+}
+
+.form-group:last-of-type {
+    margin-bottom: var(--spacing-8);
+}
+
+/* Labels */
+.form-label {
+    display: block;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: var(--spacing-2);
+    font-size: var(--font-size-sm);
+}
+
+.required {
+    color: var(--error-color);
+    font-weight: 700;
+}
+
+/* Inputs */
+.form-input {
+    width: 100%;
+    padding: var(--spacing-3) var(--spacing-4);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    transition: all 0.2s ease-in-out;
+    background-color: white;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.form-input::placeholder {
+    color: var(--gray-400);
+}
+
+/* Estado de erro nos inputs */
+.form-input.error {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Mensagens de erro */
+.error-message {
+    display: none;
+    color: var(--error-color);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-1);
+    font-weight: 500;
+}
+
+/* Botões */
+.btn {
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    padding: var(--spacing-4) var(--spacing-6);
+    font-size: var(--font-size-lg);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    background: var(--gray-200);
+    color: var(--gray-700);
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--font-size-sm);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: var(--gray-300);
+    color: var(--gray-800);
+}
+
+.btn-danger {
+    background: var(--error-color);
+    color: white;
+    padding: var(--spacing-2);
+    font-size: 0.875rem;
+    min-width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+    transform: scale(1.05);
+}
+
+.btn-danger:active {
+    transform: scale(0.95);
+}
+
+/* Botão de envio específico */
+.btn-submit {
+    width: 100%;
+}
+
+/* =====================================================
+   COMPONENTES DE LISTA/TODO
+   ===================================================== */
+
+/* Formulário para adicionar itens */
+.add-form {
+    display: flex;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-8);
+}
+
+.add-form input {
+    flex: 1;
+}
+
+/* Filtros */
+.filters {
+    display: flex;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-8);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: var(--spacing-2) var(--spacing-4);
+    border: 2px solid var(--gray-200);
+    background: white;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+}
+
+.filter-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.filter-btn:hover:not(.active) {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* Lista de itens */
+.item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-2);
+    background: white;
+    transition: all 0.2s;
+    animation: slideIn 0.3s ease-out;
+}
+
+.item:hover {
+    box-shadow: var(--shadow-sm);
+}
+
+.item.completed {
+    opacity: 0.6;
+    background: var(--gray-50);
+}
+
+.item.completed .item-text {
+    text-decoration: line-through;
+    color: var(--gray-500);
+}
+
+/* Checkbox */
+.item-checkbox {
+    width: 1.25rem;
+    height: 1.25rem;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+/* Texto do item */
+.item-text {
+    flex: 1;
+    font-size: var(--font-size-base);
+    color: var(--gray-800);
+    word-break: break-word;
+}
+
+/* Ações do item */
+.item-actions {
+    display: flex;
+    gap: var(--spacing-2);
+}
+
+/* Estado vazio */
+.empty-state {
+    text-align: center;
+    padding: var(--spacing-12) var(--spacing-4);
+    color: var(--gray-500);
+}
+
+.empty-state h3 {
+    margin-bottom: var(--spacing-2);
+    color: var(--gray-600);
+    font-size: 1.25rem;
+}
+
+.empty-state p {
+    font-size: var(--font-size-sm);
+}
+
+/* Estatísticas */
+.stats {
+    margin-top: var(--spacing-8);
+    padding-top: var(--spacing-8);
+    border-top: 1px solid var(--gray-200);
+    text-align: center;
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+}
+
+.stats p {
+    margin-bottom: var(--spacing-1);
+}
+
+.stats strong {
+    color: var(--gray-800);
+    font-weight: 600;
+}
+
+/* =====================================================
+   ANIMAÇÕES GLOBAIS
+   ===================================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.3s;
+}
+
+.fade-enter-from, .fade-leave-to {
+    opacity: 0;
+}
+
+/* Aplicar animação de entrada */
+.app-card, .app-card-large {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* =====================================================
+   RESPONSIVIDADE GLOBAL
+   ===================================================== */
+
+/* Tablets (768px e acima) */
+@media (min-width: 768px) {
+    .container {
+        max-width: 600px;
+        padding: var(--spacing-8);
+    }
+    
+    .app-card {
+        padding: var(--spacing-10);
+    }
+    
+    .header h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Desktop (1024px e acima) */
+@media (min-width: 1024px) {
+    body {
+        padding: var(--spacing-8);
+    }
+    
+    .container {
+        max-width: 500px;
+        min-height: calc(100vh - 4rem);
+    }
+    
+    .app-card {
+        padding: var(--spacing-12);
+    }
+    
+    .form-input {
+        padding: var(--spacing-4) var(--spacing-5);
+        font-size: var(--font-size-lg);
+    }
+    
+    .btn-primary {
+        padding: var(--spacing-5) var(--spacing-8);
+        font-size: var(--font-size-xl);
+    }
+}
+
+/* Telas muito pequenas (até 480px) */
+@media (max-width: 480px) {
+    body {
+        padding: var(--spacing-2);
+    }
+    
+    .container {
+        gap: var(--spacing-6);
+    }
+    
+    .header {
+        padding: var(--spacing-6) 0;
+    }
+    
+    .header h1 {
+        font-size: var(--font-size-2xl);
+    }
+    
+    .app-card {
+        padding: var(--spacing-6);
+    }
+    
+    .form-group {
+        margin-bottom: var(--spacing-5);
+    }
+    
+    .form-group:last-of-type {
+        margin-bottom: var(--spacing-6);
+    }
+    
+    .add-form {
+        flex-direction: column;
+    }
+    
+    .add-form input {
+        margin-bottom: var(--spacing-2);
+    }
+    
+    .filters {
+        flex-wrap: wrap;
+        gap: var(--spacing-1);
+    }
+    
+    .filter-btn {
+        flex: 1;
+        min-width: 80px;
+        text-align: center;
+    }
+    
+    .item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+    }
+    
+    .item-actions {
+        align-self: flex-end;
+    }
+}
+
+/* Responsividade específica para aplicações grandes */
+@media (max-width: 768px) {
+    .container-large {
+        padding: var(--spacing-4);
+    }
+
+    .app-card-large {
+        padding: var(--spacing-6);
+    }
+
+    .header-large h1 {
+        font-size: 2rem;
+    }
+}
+
+/* =====================================================
+   ACESSIBILIDADE
+   ===================================================== */
+
+/* Estados de foco melhorados */
+.form-input:focus,
+.btn:focus,
+.filter-btn:focus,
+.item-checkbox:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Melhorias para telas grandes */
+@media (min-width: 1024px) {
+    .container-large {
+        max-width: 900px;
+    }
+
+    .app-card-large {
+        padding: var(--spacing-12);
+    }
+
+    .add-form input {
+        padding: var(--spacing-4) var(--spacing-5);
+        font-size: 1.125rem;
+    }
+
+    .add-form .btn-primary {
+        padding: var(--spacing-4) var(--spacing-8);
+        font-size: 1.125rem;
+    }
+
+    .item {
+        padding: var(--spacing-5);
+    }
+
+    .item-text {
+        font-size: 1.125rem;
+    }
+}
+
+/* =====================================================
+   CSS ESPECÍFICO PARA PÁGINA TYPESCRIPT 
+   ===================================================== */
+
+/* Reset específico para página TypeScript */
+.typescript-demo * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.typescript-demo body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    line-height: 1.6;
+}
+
+.typescript-demo .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.typescript-demo .header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.typescript-demo .header h1 {
+    font-size: 2.5rem;
+    color: #1e40af;
+    margin-bottom: 1rem;
+}
+
+.typescript-demo .header p {
+    font-size: 1.2rem;
+    color: #64748b;
+}
+
+.typescript-demo .section {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.typescript-demo .section h2 {
+    color: #1e40af;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.typescript-demo .code-block {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.typescript-demo .explanation {
+    background: #f0f9ff;
+    border-left: 4px solid #3b82f6;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.typescript-demo .explanation h3 {
+    color: #1e40af;
+    margin-bottom: 0.5rem;
+}
+
+.typescript-demo .explanation ul {
+    margin-left: 1.5rem;
+}
+
+.typescript-demo .explanation li {
+    margin-bottom: 0.5rem;
+}
+
+.typescript-demo .demo-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.typescript-demo .btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.typescript-demo .btn:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.typescript-demo .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+}
+
+.typescript-demo .btn.secondary {
+    background: #6b7280;
+}
+
+.typescript-demo .btn.secondary:hover {
+    background: #4b5563;
+    box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+}
+
+.typescript-demo .btn.secondary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(107, 114, 128, 0.3);
+}
+
+.typescript-demo .btn.clicked {
+    animation: clickEffect 0.3s ease;
+}
+
+@keyframes clickEffect {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+.typescript-demo .btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.typescript-demo .btn.ripple::before {
+    width: 200px;
+    height: 200px;
+}
+
+.typescript-demo .input-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.typescript-demo .input-group input {
+    flex: 1;
+    min-width: 150px;
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+}
+
+.typescript-demo .input-group input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.typescript-demo .result-box {
+    background: #f0fdf4;
+    border: 2px solid #22c55e;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.typescript-demo .console {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    font-family: 'Courier New', monospace;
+    margin-top: 1rem;
+    min-height: 200px;
+    overflow-y: auto;
+}
+
+.typescript-demo .log {
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 0;
+}
+
+.typescript-demo .log.success { color: #22c55e; }
+.typescript-demo .log.error { color: #ef4444; }
+.typescript-demo .log.info { color: #3b82f6; }
+
+.typescript-demo .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.typescript-demo .stat {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+}
+
+.typescript-demo .stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1e40af;
+    margin-bottom: 0.5rem;
+}
+
+.typescript-demo .stat-label {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.typescript-demo .benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.typescript-demo .benefit {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border-left: 4px solid #22c55e;
+}
+
+.typescript-demo .benefit h3 {
+    color: #1e40af;
+    margin-bottom: 0.5rem;
+}
+
+.typescript-demo .benefit p {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* Estilos para checkbox */
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    line-height: 1.5;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.checkbox-text {
+    line-height: 1.4;
+}
+
+.checkbox-text a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.checkbox-text a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para campos de data */
+input[type="date"] {
+    font-family: var(--font-family);
+    color: var(--gray-700);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* Estilos para campos de telefone */
+input[type="tel"] {
+    font-family: var(--font-family);
+}
+
+/* Validação HTML5 nativa - só mostra após interação */
+.form-input:invalid:not(:placeholder-shown) {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-input:valid:not(:placeholder-shown) {
+    border-color: var(--success-color);
+}
+
+.form-input:focus:invalid:not(:placeholder-shown) {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-input:focus:valid:not(:placeholder-shown) {
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Estilos para campos obrigatórios */
+.required {
+    color: var(--error-color);
+    font-weight: 600;
+}
+
+/* Melhorias visuais para validação - só após interação */
+.form-group {
+    position: relative;
+}
+
+.form-group:has(.form-input:invalid:not(:placeholder-shown)) .form-label {
+    color: var(--error-color);
+}
+
+.form-group:has(.form-input:valid:not(:placeholder-shown)) .form-label {
+    color: var(--success-color);
+}
+
+/* Feedback visual para validação em tempo real - só após interação */
+.form-input:not(:placeholder-shown):invalid {
+    background-color: rgba(239, 68, 68, 0.05);
+}
+
+.form-input:not(:placeholder-shown):valid {
+    background-color: rgba(16, 185, 129, 0.05);
+}
